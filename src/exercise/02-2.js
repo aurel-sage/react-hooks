@@ -3,26 +3,18 @@
 
 import * as React from 'react'
 
-// Custom Hook use prefix!!
-function useLocalStorageState (key, defaultValue = '') {
-  const [state, setState] = React.useState(
-    () => window.localStorage.getItem(key) || defaultValue
+function Greeting({initialName = ''}) {
+  const [name, setName] = React.useState(
+    () => window.localStorage.getItem('name') || initialName
   );
 
   React.useEffect(() => {
-    window.localStorage.setItem(key, state);
-  },[key, state]);
-
-  return [state, setState];
-}
-
-function Greeting({initialName = ''}) {
-  const [name, setName] = useLocalStorageState(initialName)
+    window.localStorage.setItem('name', name);
+  });
 
   function handleChange(event) {
     setName(event.target.value)
   }
-
   return (
     <div>
       <form>
